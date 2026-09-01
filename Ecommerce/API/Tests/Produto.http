@@ -1,0 +1,11 @@
+### Instalar a extensão REST CLIENT
+### Criar um arquivo .http
+
+### Raiz do Projeto
+GET http://localhost:5195
+
+### Segunda Requisição
+GET http://localhost:5195/segundafuncionalidade
+
+### Requisição com o método POST
+POST http://localhost:5195/segundafuncionalidade
