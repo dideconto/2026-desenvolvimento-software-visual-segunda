@@ -4,8 +4,13 @@
 ### Raiz do Projeto
 GET http://localhost:5195
 
-### Segunda Requisição
-GET http://localhost:5195/segundafuncionalidade
+### Listar Produtos
+GET http://localhost:5195/api/produto/listar
 
-### Requisição com o método POST
-POST http://localhost:5195/segundafuncionalidade
+### Cadastrar Produto
+POST http://localhost:5195/api/produto/cadastrar
+Content-Type: application/json
+
+{
+    "nome" : "Notebook"
+}
