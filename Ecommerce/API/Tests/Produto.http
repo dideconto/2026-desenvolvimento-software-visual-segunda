@@ -9,23 +9,25 @@ GET http://localhost:5195
 GET http://localhost:5195/api/produto/listar
 
 ### Buscar produto por nome
-GET http://localhost:5195/api/produto/buscar/Mouse
+GET http://localhost:5195/api/produto/buscar/Teclado2
 
 ### Cadastrar Produto
 POST http://localhost:5195/api/produto/cadastrar
 Content-Type: application/json
 
 {
-    "nome" : "Teclado"
+    "nome" : "Teclado2",
+    "valor" : 75.50
 }
 
 ### Remover produto por id
-DELETE http://localhost:5195/api/produto/remover/c1c39ad4-4325-433e-ba8d-87957c6efea8
+DELETE http://localhost:5195/api/produto/remover/e9c03bd5-5dca-444f-b650-e04f14e9f02b
 
 ### Alterar Produto
-PUT http://localhost:5195/api/produto/alterar/2e8878aa-1184-496b-8118-ce947b161666
+PUT http://localhost:5195/api/produto/alterar/cbb2d613-cc32-4825-a653-25bdfc3f2f2d
 Content-Type: application/json
 
 {
-    "nome" : "Mouse"
+    "nome" : "Mouse",
+    "valor" : 100
 }
