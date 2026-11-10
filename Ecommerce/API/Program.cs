@@ -13,6 +13,18 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configuração do CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AcessoTotal", policy =>
+    {
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 //Registrar o serviço de banco de dados
 builder.Services.AddDbContext<AppDataContext>();
 
@@ -45,7 +57,7 @@ app.MapGet("/api/produto/listar", (
 });
 
 //POST: /api/produto/cadastrar
-app.MapPost("/api/produto/cadastrar", 
+app.MapPost("/api/produto/cadastrar",
     ([FromBody] Produto? produto,
     [FromServices] AppDataContext ctx) =>
 {
@@ -72,7 +84,7 @@ app.MapPost("/api/produto/cadastrar",
 });
 
 //GET: /api/produto/buscar/nome_produto
-app.MapGet("/api/produto/buscar/{nome}", 
+app.MapGet("/api/produto/buscar/{nome}",
     ([FromRoute] string nome,
     [FromServices] AppDataContext ctx) =>
 {
@@ -82,11 +94,11 @@ app.MapGet("/api/produto/buscar/{nome}",
     {
         return Results.NotFound("Produto não encontrado!");
     }
-    return Results.Ok(produtoEncontrado);    
+    return Results.Ok(produtoEncontrado);
 });
 
 //DELETE: /api/produto/remover/id_produto
-app.MapDelete("/api/produto/remover/{id}", 
+app.MapDelete("/api/produto/remover/{id}",
     ([FromRoute] string id,
     [FromServices] AppDataContext ctx) =>
 {
@@ -98,12 +110,12 @@ app.MapDelete("/api/produto/remover/{id}",
     }
     ctx.Produtos.Remove(produtoEncontrado);
     ctx.SaveChanges();
-    return Results.Ok(produtoEncontrado);    
+    return Results.Ok(produtoEncontrado);
 });
 
 //DELETE: /api/produto/alterar/id_produto
-app.MapPut("/api/produto/alterar/{id}", 
-    ([FromRoute] string id, 
+app.MapPut("/api/produto/alterar/{id}",
+    ([FromRoute] string id,
     [FromBody] Produto produtoAlterado,
     [FromServices] AppDataContext ctx) =>
 {
@@ -113,13 +125,14 @@ app.MapPut("/api/produto/alterar/{id}",
     {
         return Results.NotFound("Produto não encontrado!");
     }
-    
+
     produtoEncontrado.Nome = produtoAlterado.Nome;
     produtoEncontrado.Valor = produtoAlterado.Valor;
     ctx.Produtos.Update(produtoEncontrado);
     ctx.SaveChanges();
-    return Results.Ok(produtoEncontrado);    
+    return Results.Ok(produtoEncontrado);
 });
 
+app.UseCors("AcessoTotal");
 
 app.Run();
