@@ -80,7 +80,7 @@ app.MapPost("/api/produto/cadastrar",
 
     ctx.Produtos.Add(produto);
     ctx.SaveChanges();
-    return Results.Created("", produto);
+    return Results.Ok(produto);
 });
 
 //GET: /api/produto/buscar/nome_produto
